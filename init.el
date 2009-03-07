@@ -33,7 +33,8 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/organizer.org"))))
+ '(org-agenda-files (quote ("~/birthdays.org" "~/finance.org" "~/organizer.org" "~/org")))
+ '(org-agenda-todo-ignore-scheduled t))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -43,12 +44,29 @@
 
 (add-hook 'ruby-mode-hook
   (lambda ()
-    (define-key ruby-mode-map (kbd "C-c C-c s r") 'rails-spec:run-this-file)
-    (define-key ruby-mode-map (kbd "C-c C-c s t") 'rails-spec:run-this-spec)
-    (define-key ruby-mode-map (kbd "<f15>") 'rails-ws:toggle-start-stop)
+    (define-key ruby-mode-map (kbd "<f12>") 'rails-spec:run-this-file)
+    (define-key ruby-mode-map (kbd "S-<f12>") 'rails-spec:run-this-spec)
   )
 )
+
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 (require 'ido)
 (ido-mode t)
 
+(add-to-list 'load-path "/opt/local/share/emacs/site-lisp/w3m")
+(require 'w3m-load)
+(setq w3m-use-cookies 1)
+
+(add-to-list 'load-path "~/.emacs.d")
+(require 'haml-mode nil 't)
+(add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
+(require 'sass-mode nil 't)
+(add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
+(display-time)
+(add-hook 'diary-hook 'appt-make-list)
+(diary 0)
+(load "~/.emacs.d/cucumber.el/cucumber-mode.el")
+(add-hook 'feature-mode-hook 'turn-on-orgtbl)
+
+(windmove-default-keybindings 'meta)
